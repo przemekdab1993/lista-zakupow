@@ -1,0 +1,26 @@
+.item-list {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    border: 2px solid #fff;
+    border-radius: 8px;
+    margin-bottom: 5px;
+    padding: 20px;
+    font-size: 22px;
+}
+.item-list__name {
+    font-size: 26px;
+}
+.item-list__quantity {
+
+}
+.item-list__price {
+
+}
+.item-list__status {
+
+}
+.item-list__date {
+
+}
