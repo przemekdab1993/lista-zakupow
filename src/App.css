@@ -42,9 +42,3 @@ body {
     background-color: #000034;
 }
 
-.product-list {
-    display: flex;
-    flex-direction: column;
-    max-width: 900px;
-    margin: 0 auto;
-}

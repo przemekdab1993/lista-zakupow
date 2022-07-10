@@ -1,9 +1,9 @@
-import logo from './logo.svg';
 import './App.css';
 
-import ItemList from "./components/ItemList/ItemList";
+import ProductList from "./components/ItemList/ProductList";
+import NewItem from "./components/NewItem/NewItem";
 
-function App() {
+const App = () => {
     const itemList = [
         {
             name: 'Jabłko',
@@ -44,44 +44,10 @@ function App() {
 
     return (
         <div className="App">
+
             <h1>Oto twoja lista zakupów</h1>
-            <div className="product-list">
-                <ItemList
-                    name={itemList[0].name}
-                    quantity={itemList[0].quantity}
-                    price={itemList[0].price}
-                    date={itemList[0].date}
-                    status={itemList[0].status}
-                />
-                <ItemList
-                    name={itemList[1].name}
-                    quantity={itemList[1].quantity}
-                    price={itemList[1].price}
-                    date={itemList[1].date}
-                    status={itemList[1].status}
-                />
-                <ItemList
-                    name={itemList[2].name}
-                    quantity={itemList[2].quantity}
-                    price={itemList[2].price}
-                    date={itemList[2].date}
-                    status={itemList[2].status}
-                />
-                <ItemList
-                    name={itemList[3].name}
-                    quantity={itemList[3].quantity}
-                    price={itemList[3].price}
-                    date={itemList[3].date}
-                    status={itemList[3].status}
-                />
-                <ItemList
-                    name={itemList[4].name}
-                    quantity={itemList[4].quantity}
-                    price={itemList[4].price}
-                    date={itemList[4].date}
-                    status={itemList[4].status}
-                />
-            </div>
+            <ProductList items={itemList} className="product-list" />
+            <NewItem className="new-product" />
         </div>
     );
 }
