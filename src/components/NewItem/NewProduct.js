@@ -1,7 +1,7 @@
 import "./NewItem.css"
 import {useState} from "react";
 
-const NewItem = (props) => {
+const NewProduct = (props) => {
 
     const enteredData = new Date;
     const enteredStatus = 1;
@@ -93,4 +93,4 @@ const NewItem = (props) => {
     );
 }
 
-export default NewItem;
+export default NewProduct;

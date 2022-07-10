@@ -1,53 +1,69 @@
+import React, { useState } from "react";
 import './App.css';
 
-import ProductList from "./components/ItemList/ProductList";
-import NewItem from "./components/NewItem/NewItem";
+import ProductPanel from "./components/ItemList/ProductPanel";
+import Container from "./components/DefaultInterface/Container";
+import AddPanel from "./components/NewItem/AddPanel";
 
-const App = () => {
-    const itemList = [
-        {
-            name: 'Jabłko',
-            quantity: 2,
-            price: 10.20,
-            date: new Date(2022, 2, 12),
-            status: 1
-        },
-        {
-            name: 'Masło',
-            quantity: 1,
-            price: 20.00,
-            date: new Date(2022, 4, 22),
-            status: 1
-        },
-        {
-            name: 'Banan',
-            quantity: 4,
-            price: 4.10,
-            date: new Date(2022, 4, 22),
-            status: 1
-        },
-        {
-            name: 'Pomidor',
-            quantity: 3,
-            price: 11.10,
-            date: new Date(2022, 4, 23),
-            status: 1
-        },
-        {
-            name: 'Bułka',
-            quantity: 5,
-            price: 0.75,
-            date: new Date(2022, 4, 28),
-            status: 1
-        }
-    ];
+const DEFAULT_PRODUCT = [
+    {
+        name: 'apples',
+        quantity: 2,
+        price: 10.20,
+        group: [],
+        date: new Date(2022, 2, 12),
+        status: 1
+    },
+    {
+        name: 'butter',
+        quantity: 1,
+        price: 20.00,
+        group: [],
+        date: new Date(2022, 4, 22),
+        status: 1
+    },
+    {
+        name: 'bananas',
+        quantity: 4,
+        price: 4.10,
+        group: [],
+        date: new Date(2022, 4, 22),
+        status: 1
+    },
+    {
+        name: 'tomatoes',
+        quantity: 3,
+        price: 11.10,
+        group: [],
+        date: new Date(2022, 4, 23),
+        status: 1
+    },
+    {
+        name: 'rolls',
+        quantity: 5,
+        price: 0.75,
+        group: [],
+        date: new Date(2022, 4, 28),
+        status: 1
+    }
+];
+
+const App = (props) => {
+
+    const [productList, setProductList] =  useState(DEFAULT_PRODUCT);
+
 
     return (
         <div className="App">
-
-            <h1>Oto twoja lista zakupów</h1>
-            <ProductList items={itemList} className="product-list" />
-            <NewItem className="new-product" />
+            <div className="nav">
+                <Container>
+                    <AddPanel />
+                </Container>
+            </div>
+            <Container>
+                <h1 className="shopping-list-title">Shopping list</h1>
+                <ProductPanel itemsList={productList} className="product-panel" />
+            </Container>
         </div>
     );
 }
