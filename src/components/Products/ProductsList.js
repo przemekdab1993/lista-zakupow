@@ -5,8 +5,9 @@ import ItemList from "./ItemList";
 const ProductsList = (props) => {
     return (
         <div className="product-list">
-            {props.productsList.map(product => (
+            {props.productsList.map( (product) => (
                 <ItemList
+                    key={product.id}
                     name={product.name}
                     quantity={product.quantity}
                     price={product.price}
