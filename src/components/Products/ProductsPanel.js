@@ -12,7 +12,6 @@ const ProductsPanel = (props) => {
         if (filterByGroup === "all") {
             return true;
         }
-
         return product.groups.includes(filterByGroup);
     }
 
@@ -20,13 +19,17 @@ const ProductsPanel = (props) => {
         setFilterByGroup(group);
     }
 
-    const productsFiltred = props.itemsList.filter(filterBG);
+    const productsFiltered = props.itemsList.filter(filterBG);
 
     return (
         <div className="product-panel">
-            <ProductsFilters onFilteredByGroup={filteredByGroup} />
+            <ProductsFilters
+                groupsProducts={props.groupsProducts}
+                defaultGroup={filterByGroup}
+                onFilteredByGroup={filteredByGroup}
+            />
             <ProductsList
-                productsList={productsFiltred}
+                productsList={productsFiltered}
             />
         </div>
     )

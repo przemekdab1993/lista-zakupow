@@ -12,7 +12,11 @@ const ProductsFilters = (props) => {
 
     return (
         <Card className="panel-filters">
-            <FilterByGroups onSelectGroup={selectedGroup} />
+            <FilterByGroups
+                defaultVal={props.defaultGroup}
+                groupsProducts={props.groupsProducts}
+                onSelectGroup={selectedGroup}
+            />
         </Card>
     );
 }

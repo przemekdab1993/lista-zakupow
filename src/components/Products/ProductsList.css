@@ -3,3 +3,8 @@
     flex-direction: column;
     margin: 0 auto;
 }
+.filter-info {
+    padding: 10px 20px;
+    color: #303030;
+    background: #ebffeb;
+}

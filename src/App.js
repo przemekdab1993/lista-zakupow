@@ -52,10 +52,25 @@ const DEFAULT_PRODUCT = [
         status: 1
     }
 ];
+const GROUPS_PRODUCTS = [
+    {
+        id: 'g1',
+        name: 'Soup'
+    },
+    {
+        id: 'g2',
+        name: 'Sandwiches'
+    },
+    {
+        id: 'g3',
+        name: 'test'
+    }
+];
 
 const App = (props) => {
 
     const [productList, setProductList] =  useState(DEFAULT_PRODUCT);
+    const [groupsProducts, setGroupsProducts] = useState(GROUPS_PRODUCTS);
 
     return (
         <div className="App">
@@ -66,7 +81,7 @@ const App = (props) => {
             </div>
             <Container>
                 <h1 className="shopping-list-title">Na shopii pi pi pi</h1>
-                <ProductsPanel itemsList={productList} className="product-panel" />
+                <ProductsPanel itemsList={productList} groupsProducts={groupsProducts} className="product-panel" />
             </Container>
         </div>
     );

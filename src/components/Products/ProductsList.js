@@ -5,6 +5,14 @@ import ItemList from "./ItemList";
 const ProductsList = (props) => {
     return (
         <div className="product-list">
+            {(props.productsList.length === 0) && (
+                    <div className="filter-info">
+                        <p>No result to show :(</p>
+                        <p>Change the filter options or add a new product to the selected category.</p>
+                    </div>
+                )
+            }
+
             {props.productsList.map( (product) => (
                 <ItemList
                     key={product.id}
@@ -15,7 +23,6 @@ const ProductsList = (props) => {
                     status={product.status}
                 />
             ))}
-
         </div>
     );
 }

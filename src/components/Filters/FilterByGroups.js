@@ -15,10 +15,18 @@ const FilterByGroups = (props) => {
             <form onChange={handlerSelectGroup}>
                 <div className="form-group">
                     <label htmlFor="inputGroups">Select by Group: </label>
-                    <select name="selectGroup" defaultValue="all" id="inputGroups" className="form-control">
+                    <select
+                        name="selectGroup"
+                        defaultValue={props.defaultVal}
+                        id="inputGroups"
+                        className="form-control"
+                    >
                         <option value="all" >All</option>
-                        <option value="g1" >Soup</option>
-                        <option value="g2" >Sandwiches</option>
+
+                        {props.groupsProducts.map( (group) => { return (
+                                <option value={group.id} >{group.name}</option>
+                            )}
+                        )}
                     </select>
                 </div>
             </form>
