@@ -1,0 +1,10 @@
+.filter-by-status {
+
+}
+.filter-by-status label {
+    padding: 15px;
+}
+.filter-by-status select {
+    padding: 8px;
+    border-radius: 4px;
+}

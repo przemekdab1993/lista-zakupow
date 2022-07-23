@@ -24,7 +24,7 @@ const FilterByGroups = (props) => {
                         <option value="all" >All</option>
 
                         {props.groupsProducts.map( (group) => { return (
-                                <option value={group.id} >{group.name}</option>
+                                <option key={group.id} value={group.id} >{group.name}</option>
                             )}
                         )}
                     </select>
