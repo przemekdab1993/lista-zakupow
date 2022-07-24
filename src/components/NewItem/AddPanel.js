@@ -25,8 +25,20 @@ const AddPanel = (props) => {
         props.onNewGroup(newGroup);
     }
 
-    const formNewProduct = (<NewProductForm onCancelAdd={hideForm} onSubmitForm={submitProductForm}/>);
-    const formNewGroup = (<NewGroupForm onCancelAdd={hideForm} onSubmitForm={submitGroupForm}/>);
+    const formNewProduct = (
+        <NewProductForm
+            className="product-form"
+            onCancelAdd={hideForm}
+            onSubmitForm={submitProductForm}
+        />
+    );
+    const formNewGroup = (
+        <NewGroupForm
+            className="group-form"
+            onCancelAdd={hideForm}
+            onSubmitForm={submitGroupForm}
+        />
+    );
 
     return (
         <div className="add-panel">

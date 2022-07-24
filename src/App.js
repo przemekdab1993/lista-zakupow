@@ -121,9 +121,10 @@ const App = (props) => {
         <div className="App">
             <div className="massage-info">
                 <Container>
-                    { messageInfo.length > 0 &&
-                        messageInfo.map( (message) => (<p>{message}</p>) )
-                    }
+                    {/* to do usuwanie starych wiadomości*/}
+                    {/*{ messageInfo.length > 0 &&*/}
+                    {/*    messageInfo.map( (message) => (<p>{message}</p>) )*/}
+                    {/*}*/}
                 </Container>
             </div>
             <div className="nav">

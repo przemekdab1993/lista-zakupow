@@ -70,10 +70,9 @@ const NewProductForm = (props) => {
             groups: newItem.enteredGroups,
             status: newItem.enteredStatus
         };
-
         props.onSubmitForm(newProduct);
 
-        resetForm();
+        cancelAdd();
     }
 
     const cancelAdd = () => {
@@ -86,7 +85,7 @@ const NewProductForm = (props) => {
         <div className={props.className}>
             <form onSubmit={formHandler}>
                 <div className="form-group">
-                    <label className="new-item-label" htmlFor="label-name">Name</label>
+                    <label className="new-product-label" htmlFor="label-name">Name</label>
                     <input
                         type="text"
                         name="name"
@@ -95,7 +94,7 @@ const NewProductForm = (props) => {
                     />
                 </div>
                 <div className="form-group">
-                    <label className="new-expense-label" htmlFor="label-price">Quantity</label>
+                    <label className="new-product-label" htmlFor="label-quantity">Quantity</label>
                     <input
                         type="number"
                         min="1"
@@ -106,7 +105,7 @@ const NewProductForm = (props) => {
                     />
                 </div>
                 <div className="form-group">
-                    <label className="new-expense-label" htmlFor="label-dprice">Price</label>
+                    <label className="new-product-label" htmlFor="label-price">Price</label>
                     <input
                         type="number"
                         min="0.1"

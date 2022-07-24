@@ -31,7 +31,8 @@ const NewGroupForm = (props) => {
             name: newItem.enteredName
         }
         props.onSubmitForm(newGroup);
-        resetForm();
+
+        cancelAdd();
     }
 
     const cancelAdd = () => {
