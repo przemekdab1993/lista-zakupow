@@ -60,10 +60,6 @@ const GROUPS_PRODUCTS = [
     {
         id: 'g2',
         name: 'Sandwiches'
-    },
-    {
-        id: 'g3',
-        name: 'test'
     }
 ];
 
@@ -129,7 +125,11 @@ const App = (props) => {
             </div>
             <div className="nav">
                 <Container>
-                    <AddPanel onNewProduct={addNewProduct} onNewGroup={addNewGroup} />
+                    <AddPanel
+                        groupsProducts={groupsProducts}
+                        onNewProduct={addNewProduct}
+                        onNewGroup={addNewGroup}
+                    />
                 </Container>
             </div>
             <Container>

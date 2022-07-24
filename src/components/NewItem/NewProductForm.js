@@ -1,5 +1,5 @@
 import "./NewProductForm.css"
-import {useState} from "react";
+import React, {useState} from "react";
 
 const NewProductForm = (props) => {
 
@@ -38,6 +38,18 @@ const NewProductForm = (props) => {
                     return {
                         ...prevState,
                         enteredPrice: inputValue
+                    }
+                });
+                break;
+            case "selectGroup" :
+                if (inputValue === '') {
+                    return;
+                }
+
+                setNewItem((prevState) => {
+                    return {
+                        ...prevState,
+                        enteredGroups: [inputValue]
                     }
                 });
                 break;
@@ -114,6 +126,22 @@ const NewProductForm = (props) => {
                         value={newItem.enteredPrice}
                         onChange={inputChangeHandler}
                     />
+                </div>
+                <div className="form-group">
+                    <label htmlFor="label-selectGroup">Group</label>
+                    <select
+                        name="selectGroup"
+                        defaultValue="unset"
+                        className="form-control"
+                        onChange={inputChangeHandler}
+                    >
+                        <option value="" >Unset</option>
+
+                        {props.groupsProducts.map( (group) => { return (
+                                <option key={group.id} value={group.id} >{group.name}</option>
+                            )}
+                        )}
+                    </select>
                 </div>
 
                 <button type="submit" >Add Product</button>
