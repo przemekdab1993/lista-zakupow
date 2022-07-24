@@ -1,7 +1,8 @@
 import React, {useState} from "react";
 
 import "./AddPanel.css";
-import NewProduct from "./NewProduct";
+import NewProductForm from "./NewProductForm";
+import NewGroupForm from "./NewGroupForm";
 
 const AddPanel = (props) => {
 
@@ -11,7 +12,7 @@ const AddPanel = (props) => {
         setContentForm(formNewProduct);
     }
     const showAddGroup = () => {
-        console.log("sss");
+        setContentForm(formNewGroup);
     }
     const hideForm = () => {
         setContentForm('');
@@ -20,8 +21,12 @@ const AddPanel = (props) => {
     const submitProductForm = (newProduct) => {
         props.onNewProduct(newProduct);
     }
+    const submitGroupForm = (newGroup) => {
+        props.onNewGroup(newGroup);
+    }
 
-    const formNewProduct = (<NewProduct onCancelAdd={hideForm} onSubmitForm={submitProductForm}/>);
+    const formNewProduct = (<NewProductForm onCancelAdd={hideForm} onSubmitForm={submitProductForm}/>);
+    const formNewGroup = (<NewGroupForm onCancelAdd={hideForm} onSubmitForm={submitGroupForm}/>);
 
     return (
         <div className="add-panel">

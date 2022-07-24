@@ -1,7 +1,7 @@
-import "./NewProduct.css"
+import "./NewProductForm.css"
 import {useState} from "react";
 
-const NewProduct = (props) => {
+const NewProductForm = (props) => {
 
     const [newItem, setNewItem] = useState({
         enteredName : '',
@@ -74,12 +74,12 @@ const NewProduct = (props) => {
         props.onSubmitForm(newProduct);
 
         resetForm();
-        props.onCancelAdd();
     }
 
     const cancelAdd = () => {
-        props.onCancelAdd();
+
         resetForm();
+        props.onCancelAdd();
     }
 
     return (
@@ -124,4 +124,4 @@ const NewProduct = (props) => {
     );
 }
 
-export default NewProduct;
+export default NewProductForm;
