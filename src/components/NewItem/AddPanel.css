@@ -1,0 +1,4 @@
+.add-panel .nav-panel {
+    display: flex;
+    justify-content: end;
+}
