@@ -8,3 +8,15 @@ h1.shopping-list-title {
     text-align: center;
 }
 
+.nav {
+    background: #81ff98;
+    padding: 20px 0;
+}
+button {
+    margin: 0 10px;
+    padding: 10px 20px;
+    font-size: 15px;
+    background: #fff;
+    border-radius: 4px;
+    border: 1px solid;
+}

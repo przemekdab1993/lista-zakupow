@@ -1,16 +1,14 @@
-import "./NewItem.css"
+import "./NewProduct.css"
 import {useState} from "react";
 
 const NewProduct = (props) => {
-
-    const enteredData = new Date;
-    const enteredStatus = 1;
 
     const [newItem, setNewItem] = useState({
         enteredName : '',
         enteredQuantity : '',
         enteredPrice : '',
-        enteredData : new Date,
+        enteredDate : new Date,
+        enteredGroups : [],
         enteredStatus : 1
     });
 
@@ -43,18 +41,50 @@ const NewProduct = (props) => {
                     }
                 });
                 break;
-
         }
     }
 
-    const formChandler = (event) => {
+    const resetForm = () => {
+        setNewItem((prevState) => {
+            return {
+                ...prevState,
+                enteredName: '',
+                enteredQuantity: '',
+                enteredPrice: '',
+            }
+        });
+    }
+
+    const formHandler = (event) => {
         event.preventDefault();
-        console.log(newItem);
+
+        if (!newItem.enteredName || !newItem.enteredQuantity || !newItem.enteredPrice) {
+            return;
+        }
+
+        const newProduct = {
+            name: newItem.enteredName,
+            quantity: newItem.enteredQuantity,
+            price: newItem.enteredPrice,
+            date: newItem.enteredDate,
+            groups: newItem.enteredGroups,
+            status: newItem.enteredStatus
+        };
+
+        props.onSubmitForm(newProduct);
+
+        resetForm();
+        props.onCancelAdd();
+    }
+
+    const cancelAdd = () => {
+        props.onCancelAdd();
+        resetForm();
     }
 
     return (
         <div className={props.className}>
-            <form onSubmit={formChandler}>
+            <form onSubmit={formHandler}>
                 <div className="form-group">
                     <label className="new-item-label" htmlFor="label-name">Name</label>
                     <input
@@ -87,7 +117,8 @@ const NewProduct = (props) => {
                     />
                 </div>
 
-                <button type="submit" >Dodaj produkt</button>
+                <button type="submit" >Add Product</button>
+                <button onClick={cancelAdd} type="button" >Cancel</button>
             </form>
         </div>
     );

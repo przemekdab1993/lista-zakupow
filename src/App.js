@@ -72,23 +72,35 @@ const App = (props) => {
     const [productList, setProductList] =  useState(DEFAULT_PRODUCT);
     const [groupsProducts, setGroupsProducts] = useState(GROUPS_PRODUCTS);
 
-    const changeProductProperties = (newProductData) => {
+    const changeProductProperties = (newDataProduct) => {
         let newProductList = [];
         for (const product of productList) {
             let tempProduct = {...product};
-            if (product.id === newProductData.id) {
-                tempProduct = {...product, ...newProductData};
+            if (product.id === newDataProduct.id) {
+                tempProduct = {...product, ...newDataProduct};
             }
             newProductList = [...newProductList, tempProduct]
         }
         setProductList( newProductList);
     }
 
+    const addNewProduct = (newProduct) => {
+        const lastProduct = productList.at(-1);
+
+        let newProductId = 'p' + (parseInt(lastProduct.id.slice(1)) + 1);
+
+        newProduct.id = newProductId;
+
+        setProductList( (prevProductList) => {
+            return [...prevProductList, newProduct];
+        });
+    }
+
     return (
         <div className="App">
             <div className="nav">
                 <Container>
-                    <AddPanel />
+                    <AddPanel onNewProduct={addNewProduct} />
                 </Container>
             </div>
             <Container>
