@@ -1,15 +1,20 @@
-import React, {useState} from "react";
+import React from "react";
 
-import './ItemList.css';
+import './ListItem.css';
+
 import DateItem from "./DateItem";
 import Card from "../DefaultInterface/Card";
 
-const ItemList = (props) => {
-    const [itemStatus, setItemStatus] = useState(props.status)
+const ListItem = (props) => {
 
 
     const changeStatus = () => {
-        setItemStatus(itemStatus + 1);
+        const newStatus = {
+            id: props.id,
+            status: props.status + 1
+        };
+
+        props.onChangeStatus(newStatus);
     }
 
     return (
@@ -18,10 +23,10 @@ const ItemList = (props) => {
             <div className="item-list__quantity">{props.quantity}</div>
             <div className="item-list__price">${props.price}</div>
             <DateItem date={props.date} />
-            <div className="item-list__status">{itemStatus}</div>
+            <div className="item-list__status">{props.status}</div>
             <button className="btn-change-status" onClick={changeStatus} >>></button>
         </Card>
     );
 }
 
-export default ItemList;
+export default ListItem;

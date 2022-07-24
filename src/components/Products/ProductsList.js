@@ -1,8 +1,12 @@
 import './ProductsList.css'
 
-import ItemList from "./ItemList";
+import ListItem from "./ListItem";
 
 const ProductsList = (props) => {
+    const changeStatusProduct = (product) => {
+        props.onChangeProduct(product);
+    }
+
     return (
         <div className="product-list">
             {(props.productsList.length === 0) && (
@@ -14,13 +18,15 @@ const ProductsList = (props) => {
             }
 
             {props.productsList.map( (product) => (
-                <ItemList
+                <ListItem
                     key={product.id}
+                    id={product.id}
                     name={product.name}
                     quantity={product.quantity}
                     price={product.price}
                     date={product.date}
                     status={product.status}
+                    onChangeStatus={changeStatusProduct}
                 />
             ))}
         </div>

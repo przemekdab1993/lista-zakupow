@@ -33,6 +33,9 @@ const ProductsPanel = (props) => {
     const filteredByStatus = (status) => {
         setFilterByStatus(status);
     }
+    const changeProduct = (product) => {
+        props.onChangeProduct(product);
+    }
 
     const productsFiltered = props.itemsList.filter(filterBG).filter(filterBS);
 
@@ -48,6 +51,7 @@ const ProductsPanel = (props) => {
             />
             <ProductsList
                 productsList={productsFiltered}
+                onChangeProduct={changeProduct}
             />
         </div>
     )
