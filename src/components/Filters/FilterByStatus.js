@@ -1,6 +1,6 @@
 import React from "react";
 
-import "./FilterByStatus.css";
+import styles from "./FilterByStatus.module.css";
 
 const FilterByStatus = (props) => {
 
@@ -11,15 +11,15 @@ const FilterByStatus = (props) => {
     }
 
     return (
-        <div className="filter-by-status">
+        <div className={styles["filter-by-status"]}>
             <form onChange={handlerSelectStatus}>
-                <div className="form-group">
+                <div className={styles["form-group"]}>
                     <label htmlFor="inputStatus">Select by Status: </label>
                     <select
                         name="selectStatus"
                         defaultValue={props.defaultVal}
                         id="inputStatus"
-                        className="form-control"
+                        className={styles["form-control"]}
                     >
                         <option value="all" >All</option>
                         <option value="1" >New</option>

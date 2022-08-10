@@ -1,6 +1,6 @@
 import React from "react";
 
-import "./ProductsFilters.css";
+import styles from  "./ProductsFilters.module.css";
 
 import Card from "../DefaultInterface/Card";
 import FilterByGroups from "./FilterByGroups";
@@ -16,7 +16,7 @@ const ProductsFilters = (props) => {
     }
 
     return (
-        <Card className="panel-filters">
+        <Card className={styles["panel-filters"]}>
             <FilterByStatus
                 defaultVal={props.defaultStatusFilter}
                 onSelectStatus={selectedStatus}

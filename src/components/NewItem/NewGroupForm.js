@@ -1,34 +1,63 @@
 import React, {useState} from "react";
 
-import "./NewGroupForm.css";
+import styles from "./NewGroupForm.module.css";
 
 const NewGroupForm = (props) => {
 
     const [newItem, setNewItem] = useState({
-        enteredName: ''
+        enteredName: {
+            value: '',
+            valid: true
+        }
     });
 
     const inputChangeHandler = (event) => {
 
         setNewItem( (prevNewItem) => {
-            return { ...prevNewItem,  enteredName: event.target.value}
+            return {
+                ...prevNewItem,
+                enteredName: {
+                    ...prevNewItem.enteredName,
+                    value: event.target.value,
+                    valid: true
+                }}
         });
     }
 
     const resetForm = () => {
         setNewItem( (prevNewItem) => {
-            return { ...prevNewItem,  enteredName: ''}
+            return {
+                ...prevNewItem,
+                enteredName: {
+                    value: '',
+                    valid: true
+                }}
         });
     }
 
     const formHandler = (event) => {
         event.preventDefault();
 
-        if (newItem.enteredName === '') {
+        let isValid = true;
+
+        if (newItem.enteredName.value.trim().length === 0) {
+            setNewItem( (prevNewItem) => {
+                return {
+                    ...prevNewItem,
+                    enteredName: {
+                        ...prevNewItem.enteredName,
+                        valid: false
+                    }}
+            });
+
+            isValid = false;
+        }
+        if (!isValid) {
             return;
         }
+
         const newGroup = {
-            name: newItem.enteredName
+            name: newItem.enteredName.value
         }
         props.onSubmitForm(newGroup);
 
@@ -43,14 +72,14 @@ const NewGroupForm = (props) => {
 
 
     return (
-        <div className={props.className}>
+        <div className={styles[props.className]}>
             <form onSubmit={formHandler}>
-                <div className="form-group">
-                    <label className="new-item-label" htmlFor="label-name">Name</label>
+                <div className={`${styles["form-group"]} ${!newItem.enteredName.valid ? styles["invalid"] : ''}`}>
+                    <label className={styles["new-item-label"]} htmlFor="label-name">Name</label>
                     <input
                         type="text"
                         name="name"
-                        value={newItem.enteredName}
+                        value={newItem.enteredName.value}
                         onChange={inputChangeHandler}
                     />
                 </div>

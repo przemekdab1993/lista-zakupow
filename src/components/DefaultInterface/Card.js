@@ -1,17 +1,11 @@
 import React from "react";
 
-import "./Card.css";
+import styles from "./Card.module.css";
 
 const Card = (props) => {
 
-    let className = 'card';
-
-    if (props.className) {
-        className = props.className + ' ' + className;
-    }
-
     return (
-        <div className={className}>
+        <div className={`${styles["card"]} ${props.className ? props.className : ''}`} >
             {props.children}
         </div>
     );

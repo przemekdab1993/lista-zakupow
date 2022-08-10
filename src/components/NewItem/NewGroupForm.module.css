@@ -14,3 +14,9 @@
     border: 1px solid;
     font-size: 15px;
 }
+.group-form form .form-group.invalid label {
+    color: #ff3434;
+}
+.group-form form .form-group.invalid input, .group-form form .form-group.invalid select {
+    background: #ffdddd;
+}

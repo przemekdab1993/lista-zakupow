@@ -1,4 +1,4 @@
-import './ProductsList.css'
+import styles from './ProductsList.module.css'
 
 import ListItem from "./ListItem";
 
@@ -8,9 +8,9 @@ const ProductsList = (props) => {
     }
 
     return (
-        <div className="product-list">
+        <div className={styles["product-list"]}>
             {(props.productsList.length === 0) && (
-                    <div className="filter-info">
+                    <div className={styles["filter-info"]}>
                         <p>No result to show :(</p>
                         <p>Change the filter options or add a new product to the selected category.</p>
                     </div>

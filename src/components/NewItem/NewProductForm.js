@@ -1,15 +1,31 @@
-import "./NewProductForm.css"
 import React, {useState} from "react";
+
+import styles from "./NewProductForm.module.css";
 
 const NewProductForm = (props) => {
 
     const [newItem, setNewItem] = useState({
-        enteredName : '',
-        enteredQuantity : '',
-        enteredPrice : '',
-        enteredDate : new Date,
-        enteredGroups : [],
-        enteredStatus : 1
+        enteredName : {
+            value : '',
+            isValid : true
+        },
+        enteredQuantity : {
+            value : '',
+            isValid :  true
+        },
+        enteredPrice : {
+            value : '',
+            isValid : true
+        },
+        enteredDate : {
+            value : new Date
+        },
+        enteredGroups : {
+            value : []
+        },
+        enteredStatus : {
+            value : 1
+        }
     });
 
     const inputChangeHandler = (event) => {
@@ -21,26 +37,38 @@ const NewProductForm = (props) => {
                 setNewItem((prevState) => {
                     return {
                         ...prevState,
-                        enteredName: inputValue
+                        enteredName : {
+                            value : inputValue,
+                            isValid: true
+                        }
                     }
                 });
                 break;
+
             case "quantity" :
                 setNewItem((prevState) => {
                     return {
                         ...prevState,
-                        enteredQuantity: inputValue
+                        enteredQuantity: {
+                            value : inputValue,
+                            isValid : true
+                        }
                     }
                 });
                 break;
+
             case "price" :
                 setNewItem((prevState) => {
                     return {
                         ...prevState,
-                        enteredPrice: inputValue
+                        enteredPrice: {
+                            value : inputValue,
+                            isValid : true
+                        }
                     }
                 });
                 break;
+
             case "selectGroup" :
                 if (inputValue === '') {
                     return;
@@ -49,7 +77,9 @@ const NewProductForm = (props) => {
                 setNewItem((prevState) => {
                     return {
                         ...prevState,
-                        enteredGroups: [inputValue]
+                        enteredGroups: {
+                            value : [inputValue]
+                        }
                     }
                 });
                 break;
@@ -60,27 +90,74 @@ const NewProductForm = (props) => {
         setNewItem((prevState) => {
             return {
                 ...prevState,
-                enteredName: '',
-                enteredQuantity: '',
-                enteredPrice: '',
+                enteredName: {
+                    value : '',
+                    isValid : true
+                },
+                enteredQuantity: {
+                    value : '',
+                    isValid : true
+                },
+                enteredPrice: {
+                    value : '',
+                    isValid : true
+                },
             }
         });
     }
 
     const formHandler = (event) => {
         event.preventDefault();
+        let isValid = true;
 
-        if (!newItem.enteredName || !newItem.enteredQuantity || !newItem.enteredPrice) {
+        if (newItem.enteredName.value.trim().length === 0) {
+            setNewItem((prevState) => {
+                return {
+                    ...prevState,
+                    enteredName : {
+                        ...prevState.enteredName,
+                        isValid: false
+                    }
+                }
+            });
+            isValid = false;
+        }
+        if (newItem.enteredQuantity.value.trim().length === 0) {
+            setNewItem((prevState) => {
+                return {
+                    ...prevState,
+                    enteredQuantity : {
+                        ...prevState.enteredQuantity,
+                        isValid: false
+                    }
+                }
+            });
+            isValid = false;
+        }
+        if (newItem.enteredPrice.value.trim().length === 0) {
+            setNewItem((prevState) => {
+                return {
+                    ...prevState,
+                    enteredPrice : {
+                        ...prevState.enteredPrice,
+                        isValid: false
+                    }
+                }
+            });
+            isValid = false;
+        }
+
+        if (!isValid) {
             return;
         }
 
         const newProduct = {
-            name: newItem.enteredName,
-            quantity: newItem.enteredQuantity,
-            price: newItem.enteredPrice,
-            date: newItem.enteredDate,
-            groups: newItem.enteredGroups,
-            status: newItem.enteredStatus
+            name: newItem.enteredName.value,
+            quantity: newItem.enteredQuantity.value,
+            price: newItem.enteredPrice.value,
+            date: newItem.enteredDate.value,
+            groups: newItem.enteredGroups.value,
+            status: newItem.enteredStatus.value
         };
         props.onSubmitForm(newProduct);
 
@@ -94,45 +171,45 @@ const NewProductForm = (props) => {
     }
 
     return (
-        <div className={props.className}>
+        <div className={styles[props.className]}>
             <form onSubmit={formHandler}>
-                <div className="form-group">
-                    <label className="new-product-label" htmlFor="label-name">Name</label>
+                <div className={`${styles["form-group"]} ${!newItem.enteredName.isValid ? styles.invalid : ""}`}>
+                    <label className={styles["new-product-label"]} htmlFor="label-name">Name</label>
                     <input
                         type="text"
                         name="name"
-                        value={newItem.enteredName}
+                        value={newItem.enteredName.value}
                         onChange={inputChangeHandler}
                     />
                 </div>
-                <div className="form-group">
-                    <label className="new-product-label" htmlFor="label-quantity">Quantity</label>
+                <div className={`${styles["form-group"]} ${!newItem.enteredQuantity.isValid ? styles.invalid : ""}`}>
+                    <label className={styles["new-product-label"]} htmlFor="label-quantity">Quantity</label>
                     <input
                         type="number"
                         min="1"
                         step="1"
                         name="quantity"
-                        value={newItem.enteredQuantity}
+                        value={newItem.enteredQuantity.value}
                         onChange={inputChangeHandler}
                     />
                 </div>
-                <div className="form-group">
-                    <label className="new-product-label" htmlFor="label-price">Price</label>
+                <div className={`${styles["form-group"]} ${!newItem.enteredPrice.isValid ? styles.invalid : ""}`}>
+                    <label className={styles["new-product-label"]} htmlFor="label-price">Price</label>
                     <input
                         type="number"
                         min="0.1"
                         step="0.01"
                         name="price"
-                        value={newItem.enteredPrice}
+                        value={newItem.enteredPrice.value}
                         onChange={inputChangeHandler}
                     />
                 </div>
-                <div className="form-group">
-                    <label htmlFor="label-selectGroup">Group</label>
+                <div className={styles["form-group"]}>
+                    <label className={styles["new-product-label"]} htmlFor="label-selectGroup">Group</label>
                     <select
                         name="selectGroup"
                         defaultValue="unset"
-                        className="form-control"
+                        className={styles["form-control"]}
                         onChange={inputChangeHandler}
                     >
                         <option value="" >Unset</option>
