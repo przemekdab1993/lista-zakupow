@@ -1,6 +1,6 @@
 import React from "react";
 
-import "./FilterByGroups.css";
+import styles from "./FilterByGroups.module.css";
 
 const FilterByGroups = (props) => {
 
@@ -11,15 +11,15 @@ const FilterByGroups = (props) => {
     }
 
     return (
-        <div className="filter-by-group">
+        <div className={styles["filter-by-group"]}>
             <form onChange={handlerSelectGroup}>
-                <div className="form-group">
+                <div className={styles["form-group"]}>
                     <label htmlFor="inputGroups">Select by Group: </label>
                     <select
                         name="selectGroup"
                         defaultValue={props.defaultVal}
                         id="inputGroups"
-                        className="form-control"
+                        className={styles["form-control"]}
                     >
                         <option value="all" >All</option>
 

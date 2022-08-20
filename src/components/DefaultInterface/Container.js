@@ -1,17 +1,11 @@
 import React from "react";
 
-import "./Container.css";
+import styles from "./Container.module.css";
 
 const Container = (props) => {
 
-    let className = 'container ';
-
-    if (props.className) {
-        className += " " + props.className;
-    }
-
     return (
-        <div className={className}>
+        <div className={`${styles["container"]} ${props.className ? props.className : ''}`}>
             {props.children}
         </div>
     );

@@ -60,10 +60,6 @@ const GROUPS_PRODUCTS = [
     {
         id: 'g2',
         name: 'Sandwiches'
-    },
-    {
-        id: 'g3',
-        name: 'test'
     }
 ];
 
@@ -71,6 +67,7 @@ const App = (props) => {
 
     const [productList, setProductList] =  useState(DEFAULT_PRODUCT);
     const [groupsProducts, setGroupsProducts] = useState(GROUPS_PRODUCTS);
+    const [messageInfo, setMessageInfo] = useState([]);
 
     const changeProductProperties = (newDataProduct) => {
         let newProductList = [];
@@ -85,22 +82,54 @@ const App = (props) => {
     }
 
     const addNewProduct = (newProduct) => {
-        const lastProduct = productList.at(-1);
+        const lastProductList = productList.at(-1);
 
-        let newProductId = 'p' + (parseInt(lastProduct.id.slice(1)) + 1);
+        let newProductId = 'p' + (parseInt(lastProductList.id.slice(1)) + 1);
 
         newProduct.id = newProductId;
 
         setProductList( (prevProductList) => {
             return [...prevProductList, newProduct];
         });
+
+        setMessageInfo( (prevMessageInfo) => {
+            return [...prevMessageInfo, 'A new product "' + newProduct.name + '" has been added.'];
+        });
+    }
+
+    const addNewGroup = (newGroup) => {
+        const lastGroupsProducts = groupsProducts.at(-1);
+
+        let newGroupId = 'g' + (parseInt(lastGroupsProducts.id.slice(1)) + 1);
+
+        newGroup.id = newGroupId;
+
+        setGroupsProducts( (prevGroupsProducts) => {
+            return [...prevGroupsProducts, newGroup];
+        });
+
+        setMessageInfo( (prevMessageInfo) => {
+            return [...prevMessageInfo, 'A new group "' + newGroup.name + '" has been added.'];
+        });
     }
 
     return (
         <div className="App">
+            <div className="massage-info">
+                <Container>
+                    {/* to do usuwanie starych wiadomości*/}
+                    {/*{ messageInfo.length > 0 &&*/}
+                    {/*    messageInfo.map( (message) => (<p>{message}</p>) )*/}
+                    {/*}*/}
+                </Container>
+            </div>
             <div className="nav">
                 <Container>
-                    <AddPanel onNewProduct={addNewProduct} />
+                    <AddPanel
+                        groupsProducts={groupsProducts}
+                        onNewProduct={addNewProduct}
+                        onNewGroup={addNewGroup}
+                    />
                 </Container>
             </div>
             <Container>

@@ -1,0 +1,27 @@
+.product-form form {
+    display: flex;
+    justify-content: flex-start;
+}
+.product-form form .form-group {
+    margin: 0 10px;
+}
+.product-form form .form-group label {
+    padding-right: 15px;
+    font-weight: 600;
+}
+.product-form form .form-group input, .product-form form .form-group select {
+    padding: 12px;
+    border-radius: 4px;
+    border: 1px solid;
+    font-size: 15px;
+}
+.product-form form .form-group input[type="number"] {
+    max-width: 85px;
+}
+
+.product-form form .form-group.invalid label {
+    color: #ff3434;
+}
+.product-form form .form-group.invalid input, .product-form form .form-group.invalid select {
+    background: #ffdddd;
+}

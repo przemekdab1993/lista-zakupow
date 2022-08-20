@@ -1,6 +1,7 @@
 import React, {useState} from "react";
 
-import "./ProductsPanel.css";
+import styles from "./ProductsPanel.module.css";
+
 import ProductsList from "./ProductsList";
 import ProductsFilters from "../Filters/ProductsFilters";
 
@@ -41,7 +42,7 @@ const ProductsPanel = (props) => {
 
 
     return (
-        <div className="product-panel">
+        <div className={styles["product-panel"]}>
             <ProductsFilters
                 groupsProducts={props.groupsProducts}
                 defaultGroupFilter={filterByGroup}

@@ -1,0 +1,22 @@
+.group-form form {
+    display: flex;
+    justify-content: flex-start;
+}
+.group-form form .form-group {
+    margin: 0 10px;
+}
+.group-form form .form-group label {
+    padding-right: 15px;
+}
+.group-form form .form-group input {
+    padding: 12px;
+    border-radius: 4px;
+    border: 1px solid;
+    font-size: 15px;
+}
+.group-form form .form-group.invalid label {
+    color: #ff3434;
+}
+.group-form form .form-group.invalid input, .group-form form .form-group.invalid select {
+    background: #ffdddd;
+}
