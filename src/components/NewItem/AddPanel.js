@@ -29,7 +29,8 @@ const AddPanel = (props) => {
     const formNewProduct = (
         <NewProductForm
             className={"product-form"}
-            groupsProducts={props.groupsProducts}
+            produktGroups={props.productGroups}
+            listProducts={props.listProducts}
             onCancelAdd={hideForm}
             onSubmitForm={submitProductForm}
         />
@@ -37,6 +38,7 @@ const AddPanel = (props) => {
     const formNewGroup = (
         <NewGroupForm
             className={"group-form"}
+            produktGroups={props.productGroups}
             onCancelAdd={hideForm}
             onSubmitForm={submitGroupForm}
         />

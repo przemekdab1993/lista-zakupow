@@ -5,7 +5,7 @@ import styles from "./Card.module.css";
 const Card = (props) => {
 
     return (
-        <div className={`${styles["card"]} ${props.className ? props.className : ''}`} >
+        <div className={`${styles["card"]} ${props.className ? props.className : 'aaa'}`} >
             {props.children}
         </div>
     );

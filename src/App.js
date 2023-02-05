@@ -65,35 +65,30 @@ const GROUPS_PRODUCTS = [
 
 const App = (props) => {
 
-    const [productList, setProductList] =  useState(DEFAULT_PRODUCT);
+    const [listProducts, setListProducts] =  useState(DEFAULT_PRODUCT);
     const [groupsProducts, setGroupsProducts] = useState(GROUPS_PRODUCTS);
-    const [messageInfo, setMessageInfo] = useState([]);
 
     const changeProductProperties = (newDataProduct) => {
-        let newProductList = [];
-        for (const product of productList) {
+        let newListProducts = [];
+        for (const product of listProducts) {
             let tempProduct = {...product};
             if (product.id === newDataProduct.id) {
                 tempProduct = {...product, ...newDataProduct};
             }
-            newProductList = [...newProductList, tempProduct]
+            newListProducts = [...newListProducts, tempProduct]
         }
-        setProductList( newProductList);
+        setListProducts( newListProducts);
     }
 
     const addNewProduct = (newProduct) => {
-        const lastProductList = productList.at(-1);
+        const lastListProducts = listProducts.at(-1);
 
-        let newProductId = 'p' + (parseInt(lastProductList.id.slice(1)) + 1);
+        let newProductId = 'p' + (parseInt(lastListProducts.id.slice(1)) + 1);
 
         newProduct.id = newProductId;
 
-        setProductList( (prevProductList) => {
-            return [...prevProductList, newProduct];
-        });
-
-        setMessageInfo( (prevMessageInfo) => {
-            return [...prevMessageInfo, 'A new product "' + newProduct.name + '" has been added.'];
+        setListProducts( (prevListProducts) => {
+            return [...prevListProducts, newProduct];
         });
     }
 
@@ -107,26 +102,15 @@ const App = (props) => {
         setGroupsProducts( (prevGroupsProducts) => {
             return [...prevGroupsProducts, newGroup];
         });
-
-        setMessageInfo( (prevMessageInfo) => {
-            return [...prevMessageInfo, 'A new group "' + newGroup.name + '" has been added.'];
-        });
     }
 
     return (
         <div className="App">
-            <div className="massage-info">
-                <Container>
-                    {/* to do usuwanie starych wiadomości*/}
-                    {/*{ messageInfo.length > 0 &&*/}
-                    {/*    messageInfo.map( (message) => (<p>{message}</p>) )*/}
-                    {/*}*/}
-                </Container>
-            </div>
             <div className="nav">
                 <Container>
                     <AddPanel
-                        groupsProducts={groupsProducts}
+                        productGroups={groupsProducts}
+                        listProducts={listProducts}
                         onNewProduct={addNewProduct}
                         onNewGroup={addNewGroup}
                     />
@@ -136,7 +120,7 @@ const App = (props) => {
                 <h1 className="shopping-list-title">Na shopii pi pi pi</h1>
                 <ProductsPanel
                     className="product-panel"
-                    itemsList={productList}
+                    itemsList={listProducts}
                     groupsProducts={groupsProducts}
                     onChangeProduct={changeProductProperties}
                 />

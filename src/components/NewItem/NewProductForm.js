@@ -1,6 +1,7 @@
 import React, {useState} from "react";
 
 import styles from "./NewProductForm.module.css";
+import ErrorModal from "../DefaultInterface/ErrorModal";
 
 const NewProductForm = (props) => {
 
@@ -27,6 +28,8 @@ const NewProductForm = (props) => {
             value : 1
         }
     });
+
+    const [errorMessage, setErrorMessage] = useState({title: '', message: ''});
 
     const inputChangeHandler = (event) => {
         const inputName = event.target.name;
@@ -110,6 +113,8 @@ const NewProductForm = (props) => {
         event.preventDefault();
         let isValid = true;
 
+        setErrorMessage({title: '', message: ''});
+
         if (newItem.enteredName.value.trim().length === 0) {
             setNewItem((prevState) => {
                 return {
@@ -120,9 +125,14 @@ const NewProductForm = (props) => {
                     }
                 }
             });
+            setErrorMessage((prevErrorMessage) => {
+                return (
+                    {title: "Error", message: prevErrorMessage.message + 'Value Name must by not empty!!!!!!>>>'}
+                )
+            });
             isValid = false;
         }
-        if (newItem.enteredQuantity.value.trim().length === 0) {
+        if (newItem.enteredQuantity.value.trim().length === 0 || +(newItem.enteredQuantity.value) <= 0 ) {
             setNewItem((prevState) => {
                 return {
                     ...prevState,
@@ -132,9 +142,14 @@ const NewProductForm = (props) => {
                     }
                 }
             });
+            setErrorMessage((prevErrorMessage) => {
+                return (
+                    {title: "Error", message: prevErrorMessage.message + 'Value Quantity must by not empty and above zero!!!>>>' }
+                );
+            });
             isValid = false;
         }
-        if (newItem.enteredPrice.value.trim().length === 0) {
+        if (newItem.enteredPrice.value.trim().length === 0 || +(newItem.enteredPrice.value) <= 0) {
             setNewItem((prevState) => {
                 return {
                     ...prevState,
@@ -144,6 +159,12 @@ const NewProductForm = (props) => {
                     }
                 }
             });
+            setErrorMessage((prevErrorMessage) => {
+                return (
+                    {title: "Error", message: prevErrorMessage.message + 'Value Price must by not empty!!!!!!>>>'}
+                );
+            });
+
             isValid = false;
         }
 
@@ -152,7 +173,7 @@ const NewProductForm = (props) => {
         }
 
         const newProduct = {
-            name: newItem.enteredName.value,
+            name: newItem.enteredName.value.trim(),
             quantity: newItem.enteredQuantity.value,
             price: newItem.enteredPrice.value,
             date: newItem.enteredDate.value,
@@ -170,60 +191,71 @@ const NewProductForm = (props) => {
         props.onCancelAdd();
     }
 
+    const exitModalChandler = () => {
+        setErrorMessage({title: '', message: ''});
+    }
+
     return (
-        <div className={styles[props.className]}>
-            <form onSubmit={formHandler}>
-                <div className={`${styles["form-group"]} ${!newItem.enteredName.isValid ? styles.invalid : ""}`}>
-                    <label className={styles["new-product-label"]} htmlFor="label-name">Name</label>
-                    <input
-                        type="text"
-                        name="name"
-                        value={newItem.enteredName.value}
-                        onChange={inputChangeHandler}
-                    />
-                </div>
-                <div className={`${styles["form-group"]} ${!newItem.enteredQuantity.isValid ? styles.invalid : ""}`}>
-                    <label className={styles["new-product-label"]} htmlFor="label-quantity">Quantity</label>
-                    <input
-                        type="number"
-                        min="1"
-                        step="1"
-                        name="quantity"
-                        value={newItem.enteredQuantity.value}
-                        onChange={inputChangeHandler}
-                    />
-                </div>
-                <div className={`${styles["form-group"]} ${!newItem.enteredPrice.isValid ? styles.invalid : ""}`}>
-                    <label className={styles["new-product-label"]} htmlFor="label-price">Price</label>
-                    <input
-                        type="number"
-                        min="0.1"
-                        step="0.01"
-                        name="price"
-                        value={newItem.enteredPrice.value}
-                        onChange={inputChangeHandler}
-                    />
-                </div>
-                <div className={styles["form-group"]}>
-                    <label className={styles["new-product-label"]} htmlFor="label-selectGroup">Group</label>
-                    <select
-                        name="selectGroup"
-                        defaultValue="unset"
-                        className={styles["form-control"]}
-                        onChange={inputChangeHandler}
-                    >
-                        <option value="" >Unset</option>
+        <div>
+            { ((errorMessage.title.length > 0) && (errorMessage.message.length > 0)) &&  (
+                <ErrorModal
+                    title={errorMessage.title}
+                    message={errorMessage.message}
+                    onExit={exitModalChandler}
+                />
+            )}
+            <div className={styles[props.className]}>
+                <form onSubmit={formHandler}>
+                    <div className={`${styles["form-group"]} ${!newItem.enteredName.isValid ? styles.invalid : ""}`}>
+                        <label className={styles["new-product-label"]} htmlFor="label-name">Name</label>
+                        <input
+                            type="text"
+                            name="name"
+                            value={newItem.enteredName.value}
+                            onChange={inputChangeHandler}
+                        />
+                    </div>
+                    <div className={`${styles["form-group"]} ${!newItem.enteredQuantity.isValid ? styles.invalid : ""}`}>
+                        <label className={styles["new-product-label"]} htmlFor="label-quantity">Quantity</label>
+                        <input
+                            type="number"
+                            step="1"
+                            name="quantity"
+                            value={newItem.enteredQuantity.value}
+                            onChange={inputChangeHandler}
+                        />
+                    </div>
+                    <div className={`${styles["form-group"]} ${!newItem.enteredPrice.isValid ? styles.invalid : ""}`}>
+                        <label className={styles["new-product-label"]} htmlFor="label-price">Price</label>
+                        <input
+                            type="number"
+                            step="0.01"
+                            name="price"
+                            value={newItem.enteredPrice.value}
+                            onChange={inputChangeHandler}
+                        />
+                    </div>
+                    <div className={styles["form-group"]}>
+                        <label className={styles["new-product-label"]} htmlFor="label-selectGroup">Group</label>
+                        <select
+                            name="selectGroup"
+                            defaultValue="unset"
+                            className={styles["form-control"]}
+                            onChange={inputChangeHandler}
+                        >
+                            <option value="" >Unset</option>
 
-                        {props.groupsProducts.map( (group) => { return (
-                                <option key={group.id} value={group.id} >{group.name}</option>
+                            {props.produktGroups.map( (group) => { return (
+                                    <option key={group.id} value={group.id} >{group.name}</option>
+                                )}
                             )}
-                        )}
-                    </select>
-                </div>
+                        </select>
+                    </div>
 
-                <button type="submit" >Add Product</button>
-                <button onClick={cancelAdd} type="button" >Cancel</button>
-            </form>
+                    <button type="submit" >Add Product</button>
+                    <button onClick={cancelAdd} type="button" >Cancel</button>
+                </form>
+            </div>
         </div>
     );
 }
