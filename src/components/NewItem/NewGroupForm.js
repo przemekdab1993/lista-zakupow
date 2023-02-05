@@ -56,7 +56,7 @@ const NewGroupForm = (props) => {
             });
             setErrorMessage((prevErrorMessage) => {
                 return (
-                    {id: 'er'+prevErrorMessage.length, title: "Error", message: 'Value name must by not empty!!!>>>'}
+                    {title: "Error", message: 'Value name must by not empty!!!>>>'}
                 );
 
             });
@@ -78,7 +78,7 @@ const NewGroupForm = (props) => {
                 });
                 setErrorMessage((prevErrorMessage) => {
                     return (
-                    {id: 'er'+prevErrorMessage.length, title: "Error", message: 'Value name is the same as the existing one!!!>>>'}
+                    {title: "Error", message: 'Value name is the same as the existing one!!!>>>'}
                 );
 
                 });
