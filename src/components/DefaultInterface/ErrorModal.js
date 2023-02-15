@@ -6,16 +6,11 @@ import Card from "./Card";
 
 const ErrorModal = (props) => {
 
-    const clickExitChandler = () => {
-        props.onExit();
-    }
     const splitMessages = props.message.split('>>>');
-
-    console.log(splitMessages.length);
 
     return (
         <div>
-            <div className={styles["backdrop"]} onClick={clickExitChandler}></div>
+            <div className={styles["backdrop"]} onClick={props.onExit}></div>
             <Card className={styles["modal"]} >
                 <header className={styles["header"]}>
                     <h2>{props.title}</h2>
@@ -28,7 +23,7 @@ const ErrorModal = (props) => {
                     })}
                 </div>
                 <footer className={styles["actions"]}>
-                    <button className={styles["btn-footer"]} onClick={clickExitChandler}>Okey</button>
+                    <button className={styles["btn-footer"]} onClick={props.onExit}>Okey</button>
                 </footer>
             </Card>
         </div>

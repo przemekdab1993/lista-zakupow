@@ -8,7 +8,7 @@
     background: #81ff98;
     display: block;
     max-height: 70vh;
-    overflow: scroll;
+    overflow: auto;
 }
 .header {
     background: #a2ffd6;
@@ -28,6 +28,7 @@
 }
 .actions {
     padding-top: 16px;
+    text-align: right;
 }
 .actions .btn-footer {
     width: 200px;
