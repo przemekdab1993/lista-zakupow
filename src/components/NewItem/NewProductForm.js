@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 
 import styles from "./NewProductForm.module.css";
-import ErrorModal from "../DefaultInterface/ErrorModal";
+import Modal from "../DefaultInterface/Modal/Modal";
 
 const NewProductForm = (props) => {
 
@@ -198,7 +198,7 @@ const NewProductForm = (props) => {
     return (
         <div>
             { ((errorMessage.title.length > 0) && (errorMessage.message.length > 0)) &&  (
-                <ErrorModal
+                <Modal
                     title={errorMessage.title}
                     message={errorMessage.message}
                     onExit={exitModalChandler}

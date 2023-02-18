@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 
 import styles from "./NewGroupForm.module.css";
-import ErrorModal from "../DefaultInterface/ErrorModal";
+import Modal from "../DefaultInterface/Modal/Modal";
 
 const NewGroupForm = (props) => {
 
@@ -111,7 +111,7 @@ const NewGroupForm = (props) => {
     return (
         <div>
             { ((errorMessage.title.length > 0) && (errorMessage.message.length > 0)) &&  (
-                <ErrorModal
+                <Modal
                     title={errorMessage.title}
                     message={errorMessage.message}
                     onExit={exitModalChandler}
