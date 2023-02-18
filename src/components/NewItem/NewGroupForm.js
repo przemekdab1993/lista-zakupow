@@ -1,66 +1,30 @@
-import React, {useState} from "react";
+import React, {useState, useRef} from "react";
 
 import styles from "./NewGroupForm.module.css";
 import Modal from "../DefaultInterface/Modal/Modal";
 
 const NewGroupForm = (props) => {
 
-    const [newItem, setNewItem] = useState({
-        enteredName: {
-            value: '',
-            valid: true
-        }
-    });
-
     const [errorMessage, setErrorMessage] = useState({title: '', message: ''});
-
-    const inputChangeHandler = (event) => {
-
-        setNewItem( (prevNewItem) => {
-            return {
-                ...prevNewItem,
-                enteredName: {
-                    ...prevNewItem.enteredName,
-                    value: event.target.value,
-                    valid: true
-                }}
-        });
-    }
-
-    const resetForm = () => {
-        setNewItem( (prevNewItem) => {
-            return {
-                ...prevNewItem,
-                enteredName: {
-                    value: '',
-                    valid: true
-                }}
-        });
-    }
+    const [isValid, setIsValid] = useState(true);
+    const refInputNameGroup = useRef();
 
     const formHandler = (event) => {
         event.preventDefault();
-        let isValid = true;
-        const newGroupNameValueValid = newItem.enteredName.value.trim();
+
+        const newGroupNameValueValid = refInputNameGroup.current.value.trim();
+        let invalid = false;
 
         setErrorMessage({title: '', message: ''});
 
         if (newGroupNameValueValid.length === 0) {
-            setNewItem( (prevNewItem) => {
-                return {
-                    ...prevNewItem,
-                    enteredName: {
-                        ...prevNewItem.enteredName,
-                        valid: false
-                    }}
-            });
             setErrorMessage((prevErrorMessage) => {
                 return (
                     {title: "Error", message: 'Value name must by not empty!!!>>>'}
                 );
 
             });
-            isValid = false;
+            invalid = true;
         }
         else {
             let repeat = props.produktGroups.filter((group) => {
@@ -68,24 +32,16 @@ const NewGroupForm = (props) => {
             });
 
             if(repeat.length >= 1) {
-                setNewItem( (prevNewItem) => {
-                    return {
-                        ...prevNewItem,
-                        enteredName: {
-                            ...prevNewItem.enteredName,
-                            valid: false
-                        }}
-                });
                 setErrorMessage((prevErrorMessage) => {
                     return (
-                    {title: "Error", message: 'Value name is the same as the existing one!!!>>>'}
-                );
-
+                        {title: "Error", message: 'Value name is the same as the existing one!!!>>>'}
+                    );
                 });
-                isValid = false;
+                invalid = true;
             }
         }
-        if (!isValid) {
+        if (invalid) {
+            setIsValid(prevState => false);
             return;
         }
 
@@ -98,8 +54,7 @@ const NewGroupForm = (props) => {
     }
 
     const cancelAdd = () => {
-
-        resetForm();
+        refInputNameGroup.current.value = '';
         props.onCancelAdd();
     }
 
@@ -117,17 +72,15 @@ const NewGroupForm = (props) => {
                     onExit={exitModalChandler}
                 />
             )}
-
             <div className={styles[props.className]}>
                 <form onSubmit={formHandler}>
-                    <div className={`${styles["form-group"]} ${!newItem.enteredName.valid ? styles["invalid"] : ''}`}>
+                    <div className={`${styles["form-group"]} ${!isValid ? styles["invalid"] : ''}`}>
                         <label className={styles["new-item-label"]} htmlFor="label-name">Name</label>
                         <input
                             className={``}
                             type="text"
                             name="name"
-                            value={newItem.enteredName.value}
-                            onChange={inputChangeHandler}
+                            ref={refInputNameGroup}
                         />
                     </div>
 

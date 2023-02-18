@@ -9,14 +9,16 @@ const ErrorModal = (props) => {
     const splitMessages = props.message.split('>>>');
 
     return (
-        <Card className={styles["modal"]} >
+        <Card className={styles["modal"]}>
             <header className={styles["header"]}>
                 <h2>{props.title}</h2>
             </header>
             <div className={styles["content"]}>
                 {splitMessages.map((message) => {
                     return (
-                        <p>{message}</p>
+                        <p
+                            key={Math.random()}
+                        >{message}</p>
                     )
                 })}
             </div>
