@@ -22,6 +22,7 @@
 .product-form form .form-group.invalid label {
     color: #ff3434;
 }
-.product-form form .form-group.invalid input, .product-form form .form-group.invalid select {
-    background: #ffdddd;
+.product-form form .form-group.invalid input,
+.product-form form .form-group.invalid select {
+    background-color: #ffdddd !important;
 }

@@ -1,63 +1,52 @@
-import React, {useState} from "react";
+import React, {useState, useRef} from "react";
 
 import styles from "./NewGroupForm.module.css";
+import Modal from "../DefaultInterface/Modal/Modal";
 
 const NewGroupForm = (props) => {
 
-    const [newItem, setNewItem] = useState({
-        enteredName: {
-            value: '',
-            valid: true
-        }
-    });
-
-    const inputChangeHandler = (event) => {
-
-        setNewItem( (prevNewItem) => {
-            return {
-                ...prevNewItem,
-                enteredName: {
-                    ...prevNewItem.enteredName,
-                    value: event.target.value,
-                    valid: true
-                }}
-        });
-    }
-
-    const resetForm = () => {
-        setNewItem( (prevNewItem) => {
-            return {
-                ...prevNewItem,
-                enteredName: {
-                    value: '',
-                    valid: true
-                }}
-        });
-    }
+    const [errorMessage, setErrorMessage] = useState({title: '', message: ''});
+    const [isValid, setIsValid] = useState(true);
+    const refInputNameGroup = useRef();
 
     const formHandler = (event) => {
         event.preventDefault();
 
-        let isValid = true;
+        const newGroupNameValueValid = refInputNameGroup.current.value.trim();
+        let invalid = false;
 
-        if (newItem.enteredName.value.trim().length === 0) {
-            setNewItem( (prevNewItem) => {
-                return {
-                    ...prevNewItem,
-                    enteredName: {
-                        ...prevNewItem.enteredName,
-                        valid: false
-                    }}
+        setErrorMessage({title: '', message: ''});
+
+        if (newGroupNameValueValid.length === 0) {
+            setErrorMessage((prevErrorMessage) => {
+                return (
+                    {title: "Error", message: 'Value name must by not empty!!!>>>'}
+                );
+
+            });
+            invalid = true;
+        }
+        else {
+            let repeat = props.produktGroups.filter((group) => {
+                return group.name.toLowerCase() === newGroupNameValueValid.toLowerCase();
             });
 
-            isValid = false;
+            if(repeat.length >= 1) {
+                setErrorMessage((prevErrorMessage) => {
+                    return (
+                        {title: "Error", message: 'Value name is the same as the existing one!!!>>>'}
+                    );
+                });
+                invalid = true;
+            }
         }
-        if (!isValid) {
+        if (invalid) {
+            setIsValid(prevState => false);
             return;
         }
 
         const newGroup = {
-            name: newItem.enteredName.value
+            name: newGroupNameValueValid
         }
         props.onSubmitForm(newGroup);
 
@@ -65,28 +54,40 @@ const NewGroupForm = (props) => {
     }
 
     const cancelAdd = () => {
-
-        resetForm();
+        refInputNameGroup.current.value = '';
         props.onCancelAdd();
+    }
+
+    const exitModalChandler = () => {
+        setErrorMessage({title: '', message: ''});
     }
 
 
     return (
-        <div className={styles[props.className]}>
-            <form onSubmit={formHandler}>
-                <div className={`${styles["form-group"]} ${!newItem.enteredName.valid ? styles["invalid"] : ''}`}>
-                    <label className={styles["new-item-label"]} htmlFor="label-name">Name</label>
-                    <input
-                        type="text"
-                        name="name"
-                        value={newItem.enteredName.value}
-                        onChange={inputChangeHandler}
-                    />
-                </div>
+        <div>
+            { ((errorMessage.title.length > 0) && (errorMessage.message.length > 0)) &&  (
+                <Modal
+                    title={errorMessage.title}
+                    message={errorMessage.message}
+                    onExit={exitModalChandler}
+                />
+            )}
+            <div className={styles[props.className]}>
+                <form onSubmit={formHandler}>
+                    <div className={`${styles["form-group"]} ${!isValid ? styles["invalid"] : ''}`}>
+                        <label className={styles["new-item-label"]} htmlFor="label-name">Name</label>
+                        <input
+                            className={``}
+                            type="text"
+                            name="name"
+                            ref={refInputNameGroup}
+                        />
+                    </div>
 
-                <button type="submit" >Add Group</button>
-                <button onClick={cancelAdd} type="button" >Cancel</button>
-            </form>
+                    <button type="submit" >Add Group</button>
+                    <button onClick={cancelAdd} type="button" >Cancel</button>
+                </form>
+            </div>
         </div>
     );
 }

@@ -1,0 +1,37 @@
+.modal {
+    position: fixed;
+    top: 15vh;
+    left: 30%;
+    width: 40%;
+    z-index: 101;
+    box-sizing: border-box;
+    background: #81ff98;
+    display: block;
+    max-height: 70vh;
+    overflow: auto;
+}
+.header {
+    background: #a2ffd6;
+    border-radius: 8px;
+}
+.header h2 {
+    padding: 5px 10px;
+}
+
+.content {
+    background: #a2ffd6;
+    border-radius: 8px;
+}
+.content p {
+    padding: 5px 10px;
+    margin: 0;
+}
+.actions {
+    padding-top: 16px;
+    text-align: right;
+}
+.actions .btn-footer {
+    width: 200px;
+}
+
+
